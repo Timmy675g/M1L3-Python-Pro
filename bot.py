@@ -28,6 +28,12 @@ async def ban(ctx, member: discord.Member = None):
     else:
         await ctx.send("This command should point to the user you want to ban. For example: `!ban @user`")
 
+@bot.event
+async def on_member_join(member):
+    # Mengirim pesan ucapan selamat
+    for channel in member.guild.text_channels:
+        await channel.send(f'Selamat datang, {member.mention}!')
+
 @ban.error
 async def ban_error(ctx, error):
     if isinstance(error, commands.MissingPermissions):
